@@ -1,37 +1,45 @@
 # Level 3 — Transfers and Acceptance
 
-## Overview
-Add money transfer functionality with acceptance mechanism and expiration.
-This builds on Levels 1 & 2. Complete this level to unlock Level 4.
+## Instructions
 
-## New Requirements
+Your task is to implement a simplified version of a banking system.
+All operations that should be supported are listed below.
 
-Add:
-- `transfer(timestamp, src, tgt, amount)`
-- `accept_transfer(timestamp, account_id, transfer_id)`
+Solving this task consists of several levels.
+Subsequent levels are opened when the current level is correctly solved.
+You always have access to the data for the current and all previous levels.
 
-## Behavior
+You are not required to provide the most efficient implementation.
+Any code that passes the unit tests is sufficient.
+
+## Requirements
+
+The banking system should support scheduling transfers and checking transfer status.
+
+## Methods
 
 | Method | Description |
 |--------|-------------|
-| `transfer` | Withdraws from `src`, holds until accepted or expired (24h = 86400000ms). Returns unique ID `"transferX"`. |
-| `accept_transfer` | Adds money to target if valid & not expired. Returns `True` or `False`. |
-| **Expired transfers** | Funds return to source automatically after 24 hours. |
+| `transfer(self, timestamp, source, target, amount)` | Initiates a transfer from source to target. Returns `"transferX"` if successful, otherwise `None`. |
+| `accept_transfer(self, timestamp, account_id, transfer_id)` | Accepts the transfer. Returns `True` if successful, `False` otherwise. |
 
-## Transfer Expiration
-
-A transfer created at time `t` expires at time `t + 86400000` (24 hours in milliseconds).
-If not accepted by expiration time, funds are automatically returned to the source account.
+**Transfer Rules:**
+- Transfers expire after 24 hours (86400000 ms).
+- If expired, the held funds are returned to the source.
 
 ## Example
 
-```python
-create_account(1, "a1")
-create_account(2, "a2")
-deposit(2, "a1", 2000)
-transfer(3, "a1", "a2", 1000)     # → "transfer1"
-accept_transfer(4, "a2", "transfer1")  # → True
-```
+| Query | Explanation |
+|-------|-------------|
+| `create_account(1, "account1")` | → True |
+| `create_account(2, "account2")` | → True |
+| `deposit(3, "account1", 2000)` | → 2000 |
+| `transfer(4, "account1", "account2", 1000)` | → "transfer1" |
+| `accept_transfer(5, "account2", "transfer1")` | → True |
 
-## Note
-All Level 1 and Level 2 methods must still work.
+## Notes
+- All timestamps are unique and strictly increasing.
+- You may assume queries are processed in order.
+- You have access to data from all previous levels.
+- You do not need the most optimized implementation — only correctness matters.
+- All Level 1 and Level 2 methods must still work.

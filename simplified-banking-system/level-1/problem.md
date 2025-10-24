@@ -1,30 +1,40 @@
 # Level 1 — Basic Operations
 
-## Overview
-Implement a banking system class that supports basic account operations.
-This is Level 1 of 4. Complete this level to unlock Level 2.
+## Instructions
+
+Your task is to implement a simplified version of a banking system.
+All operations that should be supported are listed below.
+
+Solving this task consists of several levels.
+Subsequent levels are opened when the current level is correctly solved.
+You always have access to the data for the current and all previous levels.
+
+You are not required to provide the most efficient implementation.
+Any code that passes the unit tests is sufficient.
 
 ## Requirements
 
-Implement the following methods:
-- `create_account(timestamp, account_id)`
-- `deposit(timestamp, account_id, amount)`
-- `pay(timestamp, account_id, amount)`
+The banking system should support creating new accounts and depositing or paying money.
 
-## Behavior
+## Methods
 
 | Method | Description |
 |--------|-------------|
-| `create_account` | Creates a new account if it doesn't exist. Returns `True` on success, `False` if already exists. |
-| `deposit` | Adds money to account. Returns new balance or `None` if account doesn't exist. |
-| `pay` | Withdraws money. Returns new balance, or `None` if insufficient funds or account doesn't exist. |
+| `create_account(self, timestamp, account_id)` | Creates a new account with the given ID. Returns `True` if successful or `False` if the account already exists. |
+| `deposit(self, timestamp, account_id, amount)` | Deposits the given amount. Returns new balance or `None` if account doesn't exist. |
+| `pay(self, timestamp, account_id, amount)` | Withdraws money. Returns balance or `None` if insufficient funds or account doesn't exist. |
 
 ## Example
 
-```python
-create_account(1, "account1")  # → True
-create_account(2, "account1")  # → False
-create_account(3, "account2")  # → True
-deposit(4, "account1", 2700)   # → 2700
-pay(5, "account1", 200)        # → 2500
-```
+| Query | Explanation |
+|-------|-------------|
+| `create_account(1, "account1")` | → True |
+| `create_account(2, "account1")` | → False |
+| `deposit(3, "account1", 2000)` | → 2000 |
+| `pay(4, "account1", 500)` | → 1500 |
+
+## Notes
+- All timestamps are unique and strictly increasing.
+- You may assume queries are processed in order.
+- You have access to data from all previous levels.
+- You do not need the most optimized implementation — only correctness matters.
